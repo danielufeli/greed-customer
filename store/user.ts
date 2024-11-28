@@ -56,10 +56,9 @@ export const useAuthStore = defineStore('auth', {
           const apiErrors = error.response.data;
           this.errors = {};
 
-         this.errors = apiErrors.reduce((acc: Record<string, string>, err: { field: string; message: string }) => {
-           acc[err.field] = err.message;
-           return acc;
-         }, {});
+          apiErrors.forEach((err: { field: string; message: string }) => {
+            this.errors[err.field] = err.message;
+          });
         } else {
           this.errors = { general: 'An unexpected error occurred' };
         }
@@ -89,10 +88,9 @@ export const useAuthStore = defineStore('auth', {
           const apiErrors = error.response.data;
           this.errors = {};
 
-         this.errors = apiErrors.reduce((acc: Record<string, string>, err: { field: string; message: string }) => {
-           acc[err.field] = err.message;
-           return acc;
-         }, {});
+          apiErrors.forEach((err: { field: string; message: string }) => {
+            this.errors[err.field] = err.message;
+          });
         } else {
           this.errors = { general: 'An unexpected error occurred' };
         }
