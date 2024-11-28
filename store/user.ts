@@ -56,9 +56,20 @@ export const useAuthStore = defineStore('auth', {
           const apiErrors = error.response.data;
           this.errors = {};
 
-          apiErrors.forEach((err: { field: string; message: string }) => {
-            this.errors[err.field] = err.message;
-          });
+          if (Array.isArray(apiErrors)) {
+            apiErrors.forEach((err: { field: string; message: string }) => {
+              this.errors[err.field] = err.message;
+            });
+          } else if (isApiErrorObject(apiErrors)) {
+            this.errors = { general: apiErrors.message };
+          } else {
+            this.errors = { general: 'An unexpected error occurred' };
+          }
+
+          function isApiErrorObject(error: unknown): error is { message: string } {
+            return typeof error === 'object' && error !== null && 'message' in error;
+          }
+
         } else {
           this.errors = { general: 'An unexpected error occurred' };
         }
@@ -88,9 +99,19 @@ export const useAuthStore = defineStore('auth', {
           const apiErrors = error.response.data;
           this.errors = {};
 
-          apiErrors.forEach((err: { field: string; message: string }) => {
-            this.errors[err.field] = err.message;
-          });
+          if (Array.isArray(apiErrors)) {
+            apiErrors.forEach((err: { field: string; message: string }) => {
+              this.errors[err.field] = err.message;
+            });
+          } else if (isApiErrorObject(apiErrors)) {
+            this.errors = { general: apiErrors.message };
+          } else {
+            this.errors = { general: 'An unexpected error occurred' };
+          }
+
+          function isApiErrorObject(error: unknown): error is { message: string } {
+            return typeof error === 'object' && error !== null && 'message' in error;
+          }
         } else {
           this.errors = { general: 'An unexpected error occurred' };
         }
