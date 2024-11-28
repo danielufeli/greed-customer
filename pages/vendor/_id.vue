@@ -55,7 +55,7 @@
           <!-- Product Card -->
           <div v-for="product in products" :key="product.id" class="bg-white rounded-lg shadow-md overflow-hidden">
             <!-- Product Image -->
-            <img :src="product.banner.link" alt="Product Image" class="w-full max-h-100 object-contain" />
+            <img :src="product.banner.link" alt="Product Image" class="w-full h-40 object-cover" />
             <!-- Product Details -->
             <div class="p-4">
               <h3 class="font-bold text-md text-[#232D42] truncate">
